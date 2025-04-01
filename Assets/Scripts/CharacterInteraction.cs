@@ -13,7 +13,31 @@ public class NewBehaviourScript : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactionDistance, interactionLayer))
         {
-            Debug.Log(hit.collider.tag);
+            switch (hit.collider.tag)
+            {
+                case "Interaction/Door":
+                    InteractionDoor(hit);
+                    break;
+            }
         }
+    }
+
+    private void InteractionDoor(RaycastHit hit)
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            InteractableDoor door = hit.collider.GetComponent<InteractableDoor>();
+
+            if (door != null)
+            {
+                door.Use();
+            }
+            else
+            {
+                Debug.Log("Le script InteractableDood est manquant", hit.collider);
+            }
+        }
+
+        //Debug.Log($"Je regarde le gameobject {hit.collider.name}");
     }
 }
