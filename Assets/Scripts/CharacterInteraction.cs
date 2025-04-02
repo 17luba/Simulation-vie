@@ -34,10 +34,10 @@ public class NewBehaviourScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("Le script InteractableDood est manquant", hit.collider);
+                Debug.LogError("Le script InteractableDood est manquant", hit.collider);
             }
         }
 
-        //Debug.Log($"Je regarde le gameobject {hit.collider.name}");
+        Debug.Log($"Je regarde le gameobject {hit.collider.name}");
     }
 }
