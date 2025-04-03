@@ -5,6 +5,8 @@ public class InteractableDoor : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private bool isOpen;
 
+    public bool IsOpen => isOpen;
+
     private void Start()
     {
        animator.SetBool("isOpen", isOpen);
