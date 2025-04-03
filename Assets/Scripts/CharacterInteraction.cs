@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class CharacterInteraction : MonoBehaviour
 {
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float interactionDistance = 5.0f;
     [SerializeField] private LayerMask interactionLayer;
 
     private UserInterface ui;
+    private CharacterDiver driver;
 
     private void Start()
     {
+        driver = GetComponent<CharacterDiver>();
         ui = UserInterface.instence; 
     }
 
@@ -17,6 +19,11 @@ public class NewBehaviourScript : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Input.GetKeyDown(KeyCode.F) && driver.CurruntVehicule != null)
+        {
+            driver.ExitVehicule();
+        }
 
         if (Physics.Raycast(ray, out hit, interactionDistance, interactionLayer))
         {
@@ -29,6 +36,9 @@ public class NewBehaviourScript : MonoBehaviour
                 case "Interaction/Switch":
                     InteractionSwitch(hit);
                     break;
+                case "Interaction/Vehicule":
+                    InteractionVehicule(hit);
+                    break;
                 default:
                     ui.HideAction();
                     break;
@@ -37,6 +47,27 @@ public class NewBehaviourScript : MonoBehaviour
         else
         {
             ui.HideAction();
+        }
+    }
+
+    private void InteractionVehicule(RaycastHit hit)
+    {
+        Vehicule vehicule = hit.collider.GetComponent<Vehicule>();
+
+        if (driver.CurruntVehicule != null)
+            return;
+
+        if (vehicule == null)
+        {
+            Debug.LogError("Le script Vehicule est manquant", hit.collider);
+            return;
+        }
+
+        ui.ShowAction($"[F] Monter dans le véhicule ({vehicule.VehiculeName})");
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            driver.EnterInVehicule(vehicule);
         }
     }
 
