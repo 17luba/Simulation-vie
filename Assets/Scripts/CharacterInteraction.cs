@@ -20,7 +20,8 @@ public class CharacterInteraction : MonoBehaviour
         RaycastHit hit;
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Input.GetKeyDown(KeyCode.F) && driver.CurruntVehicule != null)
+       
+        if (Input.GetKeyDown(KeyCode.F) && driver.CurrentVehicule != null)
         {
             driver.ExitVehicule();
         }
@@ -52,9 +53,11 @@ public class CharacterInteraction : MonoBehaviour
 
     private void InteractionVehicule(RaycastHit hit)
     {
+        Debug.Log("Interaction avec le véhicule");
+
         Vehicule vehicule = hit.collider.GetComponent<Vehicule>();
 
-        if (driver.CurruntVehicule != null)
+        if (driver.CurrentVehicule != null)
             return;
 
         if (vehicule == null)
@@ -62,6 +65,7 @@ public class CharacterInteraction : MonoBehaviour
             Debug.LogError("Le script Vehicule est manquant", hit.collider);
             return;
         }
+        Debug.Log("Véhicule détecté : " + vehicule.VehiculeName);
 
         ui.ShowAction($"[F] Monter dans le véhicule ({vehicule.VehiculeName})");
 
