@@ -32,6 +32,7 @@ public class CharacterDiver : MonoBehaviour
         transform.SetParent(currentVehicule.Seats[0].seat);
 
         currentVehicule.SetControl(true);
+        interaction.MouseLock.SetTarget(vehicule.CameraTarget);
     }
 
     public void ExitVehicule()
@@ -53,6 +54,7 @@ public class CharacterDiver : MonoBehaviour
 
         currentVehicule = null;
         
+        interaction.MouseLock.SetTarget(null);
     }
 
 }

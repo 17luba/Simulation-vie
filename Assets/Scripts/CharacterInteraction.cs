@@ -5,6 +5,9 @@ public class CharacterInteraction : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float interactionDistance = 5.0f;
     [SerializeField] private LayerMask interactionLayer;
+    [SerializeField] private MouseLock mouseLock;
+
+    public MouseLock MouseLock => mouseLock;
 
     private UserInterface ui;
     private CharacterDiver driver;
@@ -49,11 +52,16 @@ public class CharacterInteraction : MonoBehaviour
         {
             ui.HideAction();
         }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            mouseLock.SwitchView();
+        }
     }
 
     private void InteractionVehicule(RaycastHit hit)
     {
-        Debug.Log("Interaction avec le véhicule");
+        // Debug.Log("Interaction avec le véhicule");
 
         Vehicule vehicule = hit.collider.GetComponent<Vehicule>();
 
@@ -65,7 +73,7 @@ public class CharacterInteraction : MonoBehaviour
             Debug.LogError("Le script Vehicule est manquant", hit.collider);
             return;
         }
-        Debug.Log("Véhicule détecté : " + vehicule.VehiculeName);
+        // Debug.Log("Véhicule détecté : " + vehicule.VehiculeName);
 
         ui.ShowAction($"[F] Monter dans le véhicule ({vehicule.VehiculeName})");
 

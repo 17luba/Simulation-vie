@@ -4,10 +4,13 @@ public class Vehicule : MonoBehaviour
 {
     [SerializeField] private string vehiculeName = "New Vehicule";
     [SerializeField] private Seat[] seats;
+    [SerializeField] private Transform cameraTarget;
+
 
     public string VehiculeName => vehiculeName;
 
     public Seat[] Seats => seats;
+    public Transform CameraTarget => cameraTarget;
 
     protected float horizontal;
     protected float vertical;
